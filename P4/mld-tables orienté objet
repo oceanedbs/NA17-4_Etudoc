@@ -1,0 +1,36 @@
+Type typeEtu <login:string, nom:string, prenom:string, mail:string>
+Etudiant de typeEtu(#login) avec nom NOT NULL et prenom NOT NULL
+
+Type RefEtu <etudiant=>o Personne>
+Type listeEtu : collection de <RefEtu>
+
+Type typeEns <login:string, nom:string, prenom:string, mail:string, type:{etu, ens, ext}>
+Enseignant de typeEns(#login) avec nom NOT NULL et prenom NOT NULL
+
+Type RefEns <enseignant=>o Enseignant>
+Type listeEns : collection de <RefEns>
+
+Type typSemestre : <annee :int, saison :{P,A}>
+Semestre de typSemestre(#annee, #saison) 
+
+Type typMotCle : <mot_cle : string>
+MotCle de typMotCle(#mot_cle)
+Type refMotCle : <mot_cle =>o MotCle>
+listeMotCle : collection de <refMotCle>
+
+Type typLicence : <code:string, nom:string>
+Licence de typLicence(#code) avec nom UNIQUE AND NOT NULL
+Type refLicence : <licence=>o Licence>
+Type listeLicence : collection de <refLicence>
+
+
+Type typCategorie : <nom:string>
+Categorie de typCategorie(#nom)
+
+
+Document(#idDoc : int, titre:string, date_pb : date, description:string, auteur : listeEtu, professeur : listeEns, semestre=>o Semeste, mot_cle : listeMotCle, licence : listeLicence, categorie=>o Categorie, archive:{Y, N}) avec titre NOT NULL, date_pb NOT NULL, description NOT NULL, auteur NOT NULL, semestre NOT NULL, mot_cle NOT NULL, licence NOT NULL, categorie NOT NULL, archive NOT NULL.
+
+
+
+
+

@@ -1,0 +1,48 @@
+Etudiant(#login : varchar, nom : varchar, prenom : varchar, mail : varchar)
+	avec mail KEY 
+	et nom, prenom NOT NULL
+
+Enseignant(#login : varchar, nom : varchar, prenom : varchar, mail : varchar)
+	avec mail KEY 
+	et nom, prenom NOT NULL
+
+Exterieur((#login : varchar, nom : varchar, prenom : varchar, mail : varchar)
+	avec mail KEY 
+	et nom, prenom NOT NULL
+
+Semestre(annee : integer(4), semestre : enum(P,A))
+	avec (annee, semestre) PRIMARY KEY
+	
+UV(#code : varchar(4), nom : varchar)
+	avec nom KEY
+
+Type(#nom : varchar)
+
+Mot-cle(#mot-cle : varchar)
+
+Categorie(#nom : varchar)
+
+Licence(#code:varchar, nom : varchar)
+	avec nom KEY
+
+Document(#titre : varchar, date_pub : date, description : varchar, archive : boolean, semestre=>Semestre, uv=>UV, type=>Type, categorie=>Categorie)
+	avec date, semestre, uv, type, categorie NOT NULL
+
+Ecrire(etudiant=>Etudiant,document=>Document)
+	avec (etudiant, document) PRIMARY KEY
+
+Valider(enseignant=>Enseignant, document=>Document)
+	avec (enseignant, document) PRIMARY KEY
+
+Participer(exterieur=>Exterieur, document=>Document)
+	avec (exterieur, document) PRIMARY KEY
+
+Caracteriser(mot-cle=>Mot-cle, document=>Document)
+	avec(mot-cle, document) PRIMARY KEY
+
+Publication(licence=>Licence, document=>Document)
+	avec(licence, document) PRIMARY KEY
+
+
+
+

@@ -1,0 +1,31 @@
+Licence(#code : string, nom : string)
+	avec nom KEY
+
+Catégorie(#nom : string)
+
+Mot-cle(#mot : string)
+
+Type(#nom : string)
+
+Publication(#licence_code=>Licence(code), #document=>Document)(iddoc)
+	avec Projection(Publication, licence) = Projection(Licence, code) et Projection(Publication, document)=Projection(Document, iddoc)
+
+Caractérise(#mot=>Mot-cle(mot), #document=>Document(iddoc))
+	avec Projection(Caractérise, mot)=Projection(Mot-cle, mot) et Projection(Caractérise, document)=Projection(Document, iddoc)
+
+UV(#code : string(4), nom:string)
+	avec nom KEY
+
+Document(#iddoc:integer, titre:string, date_pb : date, description:string, semestre:Semestre,auteur=>Personne archive:{'O', 'N'})
+	avec titre, date_pb, semestre, archive NOT NULL
+	avec auteur.type='etudiant'
+
+Personne(#login : string, nom:string, prénom:string, mail:string, type:{'etu', 'ens', 'ext'}, branche:string, bureau:string, entreprise:string)
+	avec nom, prénom, mail, type NOT NULL
+
+Participation(personne=>Personnes(login), document=>Document(iddoc))
+	avec Projection(Participation, personne) IN Projection(Personne, login) et Projection(Participation, document) IN Projection(Document, iddoc)
+
+
+
+
